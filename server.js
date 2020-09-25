@@ -3,7 +3,7 @@ const bodyParser = require ("body-parser");
 const cors = require ("cors");
 const mongoose = require ("mongoose");
 const morgan = require ("morgan");
-const posts = require('./routes/api/posts')
+const postsRoutes = require('./routes/api/posts')
 const {PORT , mongoUri} = require ('./config')
 
 const app = express();
@@ -12,6 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('tiny'));
+app.use('/api/posts', postsRoutes);
 
 mongoose
     .connect(mongoUri, {
@@ -29,10 +30,9 @@ app.get('/' , (req,res) => {
 app.get('/api' , (req,res) => {
     res.send('here is api route')
 })
-app.get('/api/posts' , (req,res) => {
-    res.send('postsssssss')
-})
-console.log(posts);
-app.get('/api/posts' , posts);
+
+console.log('ghable post');
+console.log(postsRoutes);
+console.log('bade post');
 
 app.listen(PORT , ()=> {console.log(`server is listening on ${PORT}`);})
